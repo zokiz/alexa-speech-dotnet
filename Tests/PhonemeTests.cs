@@ -5,8 +5,8 @@ namespace Alexa.Speech.Tests
 {
     public class PhonemeTests
     {
-        [Fact]
-        public void ShouldReturnPhoneme()
+        [Fact(DisplayName = "Should Mark The Tagged Part Of The Sentence As Phoneme")]
+        public void ShouldMarkTheTaggedPartOfTheSentenceAsPhoneme()
         {
             string speech = new Speech()
                 .Say("You say,")
