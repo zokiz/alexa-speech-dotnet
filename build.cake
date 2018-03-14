@@ -20,13 +20,12 @@ var buildNumber = Argument("build_number", "0.0.0.0");
 Parameters parameters = Parameters.GetParameters(Context);
 var BuildPackages = new List<BuildPackage>();
 var DeployPackages = new List<DeployPackage>();
-var DeployPackagesForIntegration = new List<DeployPackage>();
 
 Setup(context =>
 {
 	// Overide some of the given parameters
-	parameters.SolutionName = "AxTube.sln";
-	parameters.AssemblyInfoProduct = "AxTube";
+	parameters.SolutionName = "Alexa.sln";
+	parameters.AssemblyInfoProduct = "Alexa Speech for .NET";
 
 	var hiddenApiKeyNuGetServer = new string('*', parameters.NuGetArtifactsServer.ApiKey.Length - 4) + parameters.NuGetArtifactsServer.ApiKey.Substring(parameters.NuGetArtifactsServer.ApiKey.Length - 5, 4);
 	var hiddenApiKeyNuGetDeploymentServer = new string('*', parameters.NuGetDeploymentArtifactsServer.ApiKey.Length - 4) + parameters.NuGetDeploymentArtifactsServer.ApiKey.Substring(parameters.NuGetDeploymentArtifactsServer.ApiKey.Length - 5, 4);
@@ -48,33 +47,19 @@ Setup(context =>
 	// Setup packages
 	BuildPackages.Add(new BuildPackage
 	{
-		Name = "AxTube.Alexa.Host.Lambda",
-		Source = Directory("./Alexa/Host/Lambda") + File("AxTube.Alexa.Host.Lambda.nuspec"),
-		OutputDirectory = parameters.BuildOutputNuGetDeploymentDirectory,
-		ArtifactStore = parameters.NuGetDeploymentArtifactsServer
-	});
-	BuildPackages.Add(new BuildPackage
-	{
-		Name = "AxTube.YouTube.Converter.WebApi",
-		Source = Directory("./YouTube/Converter/WebApi") + File("AxTube.YouTube.Converter.WebApi.nuspec"),
+		Name = "Alexa.Speech",
+		Source = Directory("./Speech") + File("Alexa.Speech.nuspec"),
 		OutputDirectory = parameters.BuildOutputNuGetDeploymentDirectory,
 		ArtifactStore = parameters.NuGetDeploymentArtifactsServer
 	});
 
-	DeployPackages.Add(new DeployPackage
-	{
-		Name = "AxTube.Alexa.Host.Lambda",
-		Source = Directory("./Alexa/Host/Lambda") + File("AxTube.Alexa.Host.Lambda.nuspec"),
-		ArtifactStore = parameters.NuGetDeploymentArtifactsServer,
-		Deployer = parameters.OctopusDeploymentServer
-	});
-	DeployPackages.Add(new DeployPackage
-	{
-		Name = "AxTube.YouTube.Converter.WebApi",
-		Source = Directory("./YouTube/Converter/WebApi") + File("AxTube.YouTube.Converter.WebApi.nuspec"),
-		ArtifactStore = parameters.NuGetDeploymentArtifactsServer,
-		Deployer = parameters.OctopusDeploymentServer
-	});
+	//DeployPackages.Add(new DeployPackage
+	//{
+	//	Name = "AxTube.Alexa.Host.Lambda",
+	//	Source = Directory("./Alexa/Host/Lambda") + File("AxTube.Alexa.Host.Lambda.nuspec"),
+	//	ArtifactStore = parameters.NuGetDeploymentArtifactsServer,
+	//	Deployer = parameters.OctopusDeploymentServer
+	//});
 });
 
 // -------------------------------------------------------------------
@@ -194,9 +179,6 @@ Task("PreBuildPackages")
 		Verbosity = DotNetCoreVerbosity.Minimal
     };
 	DotNetCorePublish(parameters.SolutionName, settings);
-
-	// Zip the Lambda function published artifacts
-	Zip($"./Alexa/Host/Lambda/bin/{configuration}/netcoreapp2.0/publish", $"./Alexa/Host/Lambda/bin/{configuration}/Lambda.zip");
 });
 
 Task("PublishPackages")
@@ -220,30 +202,6 @@ Task("CreateReleases")
 	{
         Information("Creating release: {0}.", package.Name);
 		ReleaseManager.CreateRelease(Context, buildNumber, package);
-	});
-});
-
-Task("DeployToIntegrationEnvironment")
-    .Does(() =>
-{
-	CreateDirectory(parameters.BuildOutputNuGetDeploymentDirectory);
-
-	// Deploy to integration environment target.
-	DeployPackagesForIntegration.ForEach((package) => 
-	{
-		var adhocBuildNumber = $"{buildNumber}-int";
-		var buildPackage = new BuildPackage
-		{
-			Name = package.Name,
-			ArtifactStore = package.ArtifactStore,
-			Source = package.Source,
-			OutputDirectory = parameters.BuildOutputNuGetDeploymentDirectory
-		};
-		PackageManager.CreatePackage(Context, adhocBuildNumber, buildPackage);
-		PackageManager.PushPackage(Context, adhocBuildNumber, buildPackage);
-		
-        Information("Creating and deploying release to integration environment: {0}.", package.Name);
-		ReleaseManager.CreateReleaseAndDeploy(Context, adhocBuildNumber, package, "Integration");
 	});
 });
 

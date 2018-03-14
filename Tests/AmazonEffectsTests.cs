@@ -5,7 +5,7 @@ namespace Alexa.Speech.Tests
 {
     public class AmazonEffectsTests
     {
-        [Fact]
+        [Fact(DisplayName = "Should Set The Wispered Effect To Given Part Of The Sentence")]
         public void ShouldSetTheWisperedEffectToGivenPartOfTheSentence()
         {
             string speech = new Speech()

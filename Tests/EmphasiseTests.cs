@@ -5,7 +5,7 @@ namespace Alexa.Speech.Tests
 {
     public class EmphasiseTests
     {
-        [Fact]
+        [Fact(DisplayName = "Should Emphasise Given Word In Sentence")]
         public void ShouldEmphasiseGivenWordInSentence()
         {
             string speech = new Speech()
@@ -18,7 +18,7 @@ namespace Alexa.Speech.Tests
             speech.Should().Be("<speak>I already told you I <emphasis>really like</emphasis> that person.</speak>");
         }
 
-        [Theory]
+        [Theory(DisplayName = "Should Emphasise And Set The Emphasise Level To Given Part Of The Sentence")]
         [InlineData(EmphasiseLevel.Strong, "strong")]
         [InlineData(EmphasiseLevel.Moderate, "moderate")]
         [InlineData(EmphasiseLevel.Reduced, "reduced")]

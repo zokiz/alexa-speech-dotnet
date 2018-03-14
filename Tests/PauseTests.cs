@@ -6,7 +6,7 @@ namespace Alexa.Speech.Tests
 {
     public class PauseTests
     {
-        [Fact]
+        [Fact(DisplayName = "Should Pause")]
         public void ShouldPause()
         {
             string speech = new Speech()
@@ -18,7 +18,7 @@ namespace Alexa.Speech.Tests
             speech.Should().Be("<speak>There will be pause here <break /> then the speech continues.</speak>");
         }
 
-        [Theory]
+        [Theory(DisplayName = "Should Set The Pause Strength")]
         [InlineData(PauseStrength.None, "none")]
         [InlineData(PauseStrength.ExtraWeak, "x-weak")]
         [InlineData(PauseStrength.Weak, "weak")]
@@ -37,7 +37,7 @@ namespace Alexa.Speech.Tests
             speech.Should().Be($"<speak>There will be pause here <break strength=\"{expected}\" /> then the speech continues.</speak>");
         }
 
-        [Fact]
+        [Fact(DisplayName = "Should Set The Pause With Time Delay")]
         public void ShouldSetThePauseWithTimeDelay()
         {
             string speech = new Speech()
@@ -50,7 +50,7 @@ namespace Alexa.Speech.Tests
             speech.Should().Be("<speak>There will be 3 seconds pause here <break time=\"3000ms\" /> then the speech continues.</speak>");
         }
 
-        [Fact]
+        [Fact(DisplayName = "Should Set The Paus eWith Strength And Time Delay")]
         public void ShouldSetThePauseWithStrengthAndTimeDelay()
         {
             string speech = new Speech()
@@ -64,7 +64,7 @@ namespace Alexa.Speech.Tests
             speech.Should().Be("<speak>There will be pause here <break strength=\"medium\" time=\"1000ms\" /> then the speech continues.</speak>");
         }
 
-        [Fact]
+        [Fact(DisplayName = "Should Throw Exception When Passed In Pause Time Delay Is Over Ten Seconds")]
         public void ShouldThrowExceptionWhenPassedInPauseTimeDelayIsOverTenSeconds()
         {
             ISpeech speech = new Speech()

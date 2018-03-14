@@ -5,7 +5,7 @@ namespace Alexa.Speech.Tests
 {
     public class ParagraphTests
     {
-        [Fact]
+        [Fact(DisplayName = "Should Mark Part Of The Sentence As Paragraph")]
         public void ShouldMarkPartOfTheSentenceAsParagraph()
         {
             string speech = new Speech()

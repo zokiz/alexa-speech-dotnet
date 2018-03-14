@@ -5,7 +5,7 @@ namespace Alexa.Speech.Tests
 {
     public class SayTests
     {
-        [Fact]
+        [Fact(DisplayName = "Should Be Able To Wrap Sentence With Speak Tag")]
         public void ShouldBeAbleToWrapSentenceWithSpeakTag()
         {
             string speech = new Speech()
@@ -15,7 +15,7 @@ namespace Alexa.Speech.Tests
             speech.Should().Be("<speak>I am trying to make a point here.</speak>");
         }
 
-        [Fact]
+        [Fact(DisplayName = "Should Be Able To Concatenate Words Or Sentences")]
         public void ShouldBeAbleToConcatenateWordsOrSentences()
         {
             string speech = new Speech()

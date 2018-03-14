@@ -22,7 +22,6 @@ IF /I "%1" == "RELEASE" ( GOTO build_release )
 IF /I "%1" == "TESTS" ( GOTO run_tests )
 IF /I "%1" == "PACKAGE" ( GOTO package )
 IF /I "%1" == "PUBLISH" ( GOTO publish )
-IF /I "%1" == "DEPLOY_TO_INTEGRATION" ( GOTO deploy_to_integration )
 IF /I "%1" == "CREATE_RELEASES" ( GOTO create_releases )
 
 REM All other calls go to the standard runner
@@ -82,14 +81,6 @@ GOTO standard_command
 		ECHO Please provide build number with the command in this format 'build publish 1.0.0.0'
 	) ELSE (
 		CALL powershell .\build.ps1 -target PublishPackages -Verbosity Diagnostic -scriptargs '-build_number="%2"'
-	)
-	GOTO finished
-
-:deploy_to_integration
-	IF /I "%2" == "" (
-		ECHO Please provide build number with the command in this format 'build deploy_to_integration 1.0.0.0'
-	) ELSE (
-		CALL powershell .\build.ps1 -target DeployToIntegrationEnvironment -Verbosity Diagnostic -scriptargs '-build_number="%2"'
 	)
 	GOTO finished
 
