@@ -128,5 +128,20 @@ namespace Alexa.Speech.Tests
 
             speech.Should().Be($"<speak>Normal volume for the first sentence. <prosody volume=\"{expected}\">Different volume for the second sentence</prosody>.</speak>");
         }
+
+        [Fact(DisplayName = "Should Throw Exception When The Set Volume As Decibel Exceeds 4.08dB")]
+        public void ShouldThrowExceptionWhenTheSetVolumeAsDecibelExceedsFourPointZeroEightDecibels()
+        {
+            ISpeech speech = new Speech()
+                .Say("Normal volume for the first sentence.")
+                .Say("Different volume for the second sentence")
+                    .WithVolume(4.1)
+                .Say(".");
+
+            Action action = () => speech.Build();
+            action.Should()
+                .Throw<SpeechException>()
+                .WithMessage("The maximum positive value for volume is +4.08dB.");
+        }
     }
 }

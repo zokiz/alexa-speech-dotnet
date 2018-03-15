@@ -103,6 +103,10 @@ namespace Alexa.Speech.Writers
             }
             else if (_volumeInDecibels.HasValue)
             {
+                if (_volumeInDecibels.Value > 4.08)
+                {
+                    throw new SpeechException("The maximum positive value for volume is +4.08dB.");
+                }
                 string decibels = _volumeInDecibels.Value.ToString("0.##", CultureInfo.InvariantCulture);
                 writer.WriteAttributeString("volume", $"{(_volumeInDecibels.Value >= 0 ? "+" : string.Empty)}{decibels}dB");
             }
