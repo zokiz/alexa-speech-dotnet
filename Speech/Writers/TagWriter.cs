@@ -2,18 +2,20 @@
 
 namespace Alexa.Speech.Writers
 {
-    public class ParagraphWriter : ISpeechWriter
+    public class TagWriter : ISpeechWriter
     {
         private readonly ISpeechWriter _writer;
+        private readonly string _tag;
 
-        public ParagraphWriter(ISpeechWriter writer)
+        public TagWriter(ISpeechWriter writer, string tag)
         {
             _writer = writer;
+            _tag = tag;
         }
 
         public void Write(XmlWriter writer)
         {
-            writer.WriteStartElement("p");
+            writer.WriteStartElement(_tag);
             _writer.Write(writer);
             writer.WriteEndElement();
         }

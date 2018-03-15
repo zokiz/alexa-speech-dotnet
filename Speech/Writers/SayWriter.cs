@@ -26,13 +26,19 @@ namespace Alexa.Speech.Writers
 
         public ISpeech AsParagraph()
         {
-            _writer = new ParagraphWriter(_writer);
+            _writer = new TagWriter(_writer, "p");
             return this;
         }
 
         public ISpeech AsPhoneme(PhoneticAlphabet alphabet, string phoneticPronunciation)
         {
             _writer = new PhonemeWriter(_writer, alphabet, phoneticPronunciation);
+            return this;
+        }
+
+        public ISpeech AsSentence()
+        {
+            _writer = new TagWriter(_writer, "s");
             return this;
         }
 
