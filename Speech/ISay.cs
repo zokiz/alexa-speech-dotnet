@@ -27,6 +27,13 @@
         ISpeech AsPhoneme(PhoneticAlphabet alphabet, string phoneticPronunciation);
 
         /// <summary>
+        /// Represents a sentence. This tag provides strong breaks before and after the tag. It is equivalent to ending a sentence with a period(.)
+        /// or specifying a pause with <see cref="PauseStrength.Strong"/>.
+        /// </summary>
+        /// <returns></returns>
+        ISpeech AsSentence();
+
+        /// <summary>
         /// Applies Amazon-specific effects to the speech.
         /// </summary>
         /// <param name="effect">The name of the effect to apply to the speech.</param>
