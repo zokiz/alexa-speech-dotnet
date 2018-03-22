@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="InterpretAs.cs" />
+    <Compile Remove="ISayAs.cs" />
+    <Compile Remove="Writers\InterpretAsWriter.cs" />
+    <Compile Remove="Writers\SayAsSimpleWriter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Alexa.Speech.nuspec" />
   </ItemGroup>
 
