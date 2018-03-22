@@ -4,10 +4,10 @@ namespace Alexa.Speech.Writers
 {
     public class SayWriter : BaseSpeach, ISay, ISpeechWriter
     {
-        private readonly string _value;
         private ISpeechWriter _writer;
+        private readonly string _value;
 
-        public SayWriter(string value, ISpeech speech) : base(speech)
+        public SayWriter(ISpeech speech, string value) : base(speech)
         {
             _value = value;
             _writer = new PlainTextWriter(value);
@@ -39,6 +39,71 @@ namespace Alexa.Speech.Writers
         public ISpeech AsSentence()
         {
             _writer = new TagWriter(_writer, "s");
+            return this;
+        }
+
+        public ISpeech AsAlias(string alias)
+        {
+            _writer = new SubWriter(_writer, alias);
+            return this;
+        }
+        public ISpeech AsFraction()
+        {
+            _writer = new SayAsWriter("fraction", _value);
+            return this;
+        }
+
+        public ISpeech AsUnit()
+        {
+            _writer = new SayAsWriter("unit", _value);
+            return this;
+        }
+
+        public ISpeech AsAddress()
+        {
+            _writer = new SayAsWriter("address", _value);
+            return this;
+        }
+
+        public ISpeech AsInterjection()
+        {
+            _writer = new SayAsWriter("interjection", _value);
+            return this;
+        }
+
+        public ISpeech Expletive()
+        {
+            _writer = new SayAsWriter("expletive", _value);
+            return this;
+        }
+
+        public ISpeech AsTime()
+        {
+            _writer = new SayAsWriter("time", _value);
+            return this;
+        }
+
+        public ISpeech AsTelephone()
+        {
+            _writer = new SayAsWriter("telephone", _value);
+            return this;
+        }
+
+        public ISpeech AsCharacters()
+        {
+            _writer = new SayAsWriter("characters", _value);
+            return this;
+        }
+
+        public ISpeech SpellOut()
+        {
+            _writer = new SayAsWriter("spell-out", _value);
+            return this;
+        }
+
+        public ISpeech PronounceAs(PronounceRole role)
+        {
+            _writer = new PronounceWriter(_writer, role);
             return this;
         }
 

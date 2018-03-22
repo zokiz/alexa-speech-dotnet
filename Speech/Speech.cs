@@ -1,4 +1,5 @@
 ﻿using Alexa.Speech.Writers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
@@ -15,7 +16,21 @@ namespace Alexa.Speech
         
         public ISay Say(string value)
         {
-            SayWriter say = new SayWriter(value, this);
+            SayWriter say = new SayWriter(this, value);
+            _says.Add(say);
+            return say;
+        }
+        
+        public ISayAsNumber Say(int number)
+        {
+            SayAsNumberWriter say = new SayAsNumberWriter(this, number);
+            _says.Add(say);
+            return say;
+        }
+
+        public ISayAsDate Say(DateTime date)
+        {
+            SayAsDateWriter say = new SayAsDateWriter(this, date);
             _says.Add(say);
             return say;
         }

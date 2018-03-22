@@ -34,6 +34,74 @@
         ISpeech AsSentence();
 
         /// <summary>
+        /// Pronounce the specified word or phrase as a different word or phrase.
+        /// </summary>
+        /// <param name="alias">The word or phrase to speak in place of the tagged text.</param>
+        /// <returns></returns>
+        ISpeech AsAlias(string alias);
+
+        /// <summary>
+        /// Interpret the value as a fraction. This works for both common fractions (such as 3/20) and mixed fractions (such as 1+1/2).
+        /// </summary>
+        /// <returns></returns>
+        ISpeech AsFraction();
+
+        /// <summary>
+        /// Interpret a value as a measurement. The value should be either a number or fraction followed by a unit (with no space in between) or just a unit.
+        /// </summary>
+        /// <returns></returns>
+        ISpeech AsUnit();
+
+        /// <summary>
+        /// Interpret a value as part of street address.
+        /// </summary>
+        /// <returns></returns>
+        ISpeech AsAddress();
+
+        /// <summary>
+        /// Interpret the value as an interjection. Alexa speaks the text in a more expressive voice. For optimal results, only use the supported interjections and surround each speechcon with a pause.
+        /// </summary>
+        /// <returns></returns>
+        ISpeech AsInterjection();
+
+        /// <summary>
+        /// Interpret a value such as 1'21" as duration in minutes and seconds.
+        /// </summary>
+        /// <returns></returns>
+        ISpeech AsTime();
+
+        /// <summary>
+        /// "Bleep" out the content inside the tag.
+        /// </summary>
+        /// <returns></returns>
+        ISpeech Expletive();
+
+        /// <summary>
+        /// Interpret a value as a 7-digit or 10-digit telephone number. This can also handle extensions (for example, 2025551212x345).
+        /// </summary>
+        /// <returns></returns>
+        ISpeech AsTelephone();
+
+        /// <summary>
+        /// Spell out each letter.
+        /// </summary>
+        /// <returns></returns>
+        ISpeech AsCharacters();
+
+        /// <summary>
+        /// Spell out each letter.
+        /// </summary>
+        /// <returns></returns>
+        ISpeech SpellOut();
+
+        /// <summary>
+        /// Customizes the pronunciation of words by specifying the word's part of speech.
+        /// </summary>
+        /// <param name="role">The way to interpret the word.</param>
+        /// <returns></returns>
+        ISpeech PronounceAs(PronounceRole role);
+
+        /// <summary>
         /// Applies Amazon-specific effects to the speech.
         /// </summary>
         /// <param name="effect">The name of the effect to apply to the speech.</param>
