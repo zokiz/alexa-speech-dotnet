@@ -35,6 +35,13 @@ namespace Alexa.Speech
             return say;
         }
 
+        public IPlayAudio Play(string source)
+        {
+            AudioWriter audio = new AudioWriter(this, source);
+            _says.Add(audio);
+            return audio;
+        }
+
         public IPause Pause()
         {
             PauseWriter pause = new PauseWriter(this);

@@ -10,6 +10,8 @@ namespace Alexa.Speech
 
         ISayAsDate Say(DateTime date);
 
+        IPlayAudio Play(string source);
+
         IPause Pause();
 
         string Build();

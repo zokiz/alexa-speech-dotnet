@@ -11,11 +11,6 @@ namespace Alexa.Speech
             _speech = speech;
         }
 
-        public IPause Pause()
-        {
-            return _speech.Pause();
-        }
-
         public ISay Say(string value)
         {
             return _speech.Say(value);
@@ -29,6 +24,16 @@ namespace Alexa.Speech
         public ISayAsDate Say(DateTime date)
         {
             return _speech.Say(date);
+        }
+
+        public IPlayAudio Play(string source)
+        {
+            return _speech.Play(source);
+        }
+
+        public IPause Pause()
+        {
+            return _speech.Pause();
         }
 
         public string Build()
