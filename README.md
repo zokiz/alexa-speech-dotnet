@@ -54,7 +54,7 @@ $ dotnet add package Alexa.Speech
 
 ## How To Use
 Following are examples of how to use `Alexa Speech` to generate valid SSML with the supported tags for your Alexa Skills:
-#### [amazon:effect](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#amazon-effect)
+### [amazon:effect](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#amazon-effect)
 ```csharp
 string speech = new Speech()
     .Say("I want to tell you a secret.")
@@ -71,7 +71,7 @@ string speech = new Speech()
 </speak>
 ```
 
-#### [audio](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#audio)
+### [audio](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#audio)
 ```csharp
 string speech = new Speech()
     .Say("Welcome to Car-Fu.")
@@ -88,7 +88,7 @@ string speech = new Speech()
 </speak>
 ```
 
-#### [break](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#break)
+### [break](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#break)
 ```csharp
 string speech = new Speech()
     .Say("There will be 3 seconds pause here")
@@ -105,7 +105,7 @@ string speech = new Speech()
 </speak>
 ```
 
-#### [emphasis](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#emphasis)
+### [emphasis](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#emphasis)
 ```csharp
 string speech = new Speech()
     .Say("I already told you I")
@@ -122,7 +122,7 @@ string speech = new Speech()
 </speak>
 ```
 
-#### [p](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#p)
+### [p](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#p)
 ```csharp
 string speech = new Speech()
     .Say("This is the first paragraph. There should be a pause after this text is spoken.")
@@ -138,7 +138,7 @@ string speech = new Speech()
 </speak>
 ```
 
-#### [phoneme](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#phoneme)
+### [phoneme](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#phoneme)
 ```csharp
 string speech = new Speech()
     .Say("You say,")
@@ -158,7 +158,7 @@ string speech = new Speech()
 </speak>
 ```
 
-#### [prosody](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#prosody)
+### [prosody](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#prosody)
 ```csharp
 string speech = new Speech()
     .Say("Normal volume for the first sentence.")
@@ -185,7 +185,7 @@ string speech = new Speech()
 </speak>
 ```
 
-#### [s](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#s)
+### [s](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#s)
 ```csharp
 string speech = new Speech()
     .Say("This is a sentence")
@@ -203,7 +203,7 @@ string speech = new Speech()
 </speak>
 ```
 
-#### [say-as](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#say-as)
+### [say-as](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#say-as)
 ```csharp
 string speech = new Speech()
     .Say(251)
@@ -265,7 +265,7 @@ string speech = new Speech()
 </speak>
 ```
 
-#### [speak](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#speak)
+### [speak](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#speak)
 ```csharp
 string speech = new Speech()
     .Say("This is what Alexa sounds like without any SSML.")
@@ -278,7 +278,7 @@ string speech = new Speech()
 sub
 ```
 
-#### [sub](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#sub)
+### [sub](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#sub)
 ```csharp
 string speech = new Speech()
     .Say("My favorite chemical element is")
@@ -298,7 +298,7 @@ string speech = new Speech()
 sub
 ```
 
-#### [w](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#w)
+### [w](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#w)
 ```csharp
 string speech = new Speech()
     .Say("The word")
@@ -319,3 +319,14 @@ string speech = new Speech()
 </speak>
 sub
 ```
+
+### More Samples
+You can checkout all possible ways of using this library within the `Alexa.Speech.Tests.csproj` project. 
+
+## Contributing
+You are free to contribute to this project, just follow these simple rules:
+1. Submit an issue describing your proposed change.
+2. Fork this repo and develop.
+3. Cover your changes with Unit Tests and make sure they all pass.
+5. Make sure that your code adheres to the existing coding style.
+5. Submit a pull request.
