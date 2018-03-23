@@ -11,6 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_BuildScripts", "_BuildScri
 	ProjectSection(SolutionItems) = preProject
 		build.cake = build.cake
 		build.cmd = build.cmd
+		build\packages.cake = build\packages.cake
+		build\parameters.cake = build\parameters.cake
+		build\servers.cake = build\servers.cake
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alexa.Speech", "Speech\Alexa.Speech.csproj", "{510ECF75-C5B8-4105-9908-0479BB66401A}"

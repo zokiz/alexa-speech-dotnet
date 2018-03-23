@@ -34,8 +34,6 @@ GOTO standard_command
     CALL git update-index --assume-unchanged build.cmd
 	ECHO Setting build.ps1 as git assume unchanged
     CALL git update-index --assume-unchanged build.ps1
-	ECHO Setting build.sh as git assume unchanged
-    CALL git update-index --assume-unchanged build.sh
     ECHO Setting CommonAssemblyInfo.cs as git assume unchanged
     CALL git update-index --assume-unchanged CommonAssemblyInfo.cs
 	CALL powershell .\build.ps1 -target SetupDevelopmentExperience
