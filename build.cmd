@@ -36,7 +36,6 @@ GOTO standard_command
     CALL git update-index --assume-unchanged build.ps1
     ECHO Setting CommonAssemblyInfo.cs as git assume unchanged
     CALL git update-index --assume-unchanged CommonAssemblyInfo.cs
-	CALL powershell .\build.ps1 -target SetupDevelopmentExperience
 	ECHO.
 	ECHO Development setup completed, environment ready for developement!
 	GOTO finished
