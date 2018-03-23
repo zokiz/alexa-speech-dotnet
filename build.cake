@@ -3,14 +3,15 @@
 #tool "nuget:?package=OctopusTools"
 
 // Load custom scripts.
-#load nuget:http://nuget.idevolutionlab.com/nuget?package=BuildTools
+#load "local:?path=build/parameters.cake"
+#load "local:?path=build/packages.cake"
 
 // -------------------------------------------------------------------
 // ARGUMENTS
 // -------------------------------------------------------------------
 
 var target = Argument("target", "Build");
-var configuration = Argument("configuration", "Release");
+var configuration = Argument("configuration", "Debug");
 var buildNumber = Argument("build_number", "0.0.0.0");
 
 // -------------------------------------------------------------------
@@ -23,18 +24,12 @@ var DeployPackages = new List<DeployPackage>();
 
 Setup(context =>
 {
-	// Overide some of the given parameters
-	parameters.SolutionName = "Alexa.sln";
-	parameters.AssemblyInfoProduct = "Alexa Speech for .NET";
-
 	var hiddenApiKeyNuGetServer = new string('*', parameters.NuGetArtifactsServer.ApiKey.Length - 4) + parameters.NuGetArtifactsServer.ApiKey.Substring(parameters.NuGetArtifactsServer.ApiKey.Length - 5, 4);
 	var hiddenApiKeyNuGetDeploymentServer = new string('*', parameters.NuGetDeploymentArtifactsServer.ApiKey.Length - 4) + parameters.NuGetDeploymentArtifactsServer.ApiKey.Substring(parameters.NuGetDeploymentArtifactsServer.ApiKey.Length - 5, 4);
 	var hiddenApiKeyOctopusServer = new string('*', parameters.OctopusDeploymentServer.ApiKey.Length - 4) + parameters.OctopusDeploymentServer.ApiKey.Substring(parameters.OctopusDeploymentServer.ApiKey.Length - 5, 4);
 
-	// Print all available parameters
+	// Print some of the available parameters
 	Information("Is Local Build: {0}", parameters.IsLocalBuild);
-	Information("Is Running On Windows: {0}", parameters.IsRunningOnWindows);
-	Information("Is Running On Unix: {0}", parameters.IsRunningOnUnix);
 	Information("Solution: {0}", parameters.SolutionName);
 	Information("Build output directory: {0}", parameters.BuildOutputDirectory);
 	Information("Build output test results directory: {0}", parameters.BuildOutputTestResultsDirectory);
@@ -53,13 +48,13 @@ Setup(context =>
 		ArtifactStore = parameters.NuGetDeploymentArtifactsServer
 	});
 
-	//DeployPackages.Add(new DeployPackage
-	//{
-	//	Name = "AxTube.Alexa.Host.Lambda",
-	//	Source = Directory("./Alexa/Host/Lambda") + File("AxTube.Alexa.Host.Lambda.nuspec"),
-	//	ArtifactStore = parameters.NuGetDeploymentArtifactsServer,
-	//	Deployer = parameters.OctopusDeploymentServer
-	//});
+	DeployPackages.Add(new DeployPackage
+	{
+		Name = "Alexa.Speech",
+		Source = Directory("./Speech") + File("Alexa.Speech.nuspec"),
+		ArtifactStore = parameters.NuGetDeploymentArtifactsServer,
+		Deployer = parameters.OctopusDeploymentServer
+	});
 });
 
 // -------------------------------------------------------------------
@@ -203,42 +198,6 @@ Task("CreateReleases")
         Information("Creating release: {0}.", package.Name);
 		ReleaseManager.CreateRelease(Context, buildNumber, package);
 	});
-});
-
-Task("DeployToLocalEnvironment")
-	.IsDependentOn("BuildPackages")
-    .Does(() =>
-{
-	// Deploy to local environment target.
-	DeployPackages.ForEach((package) => 
-	{
-        Information("Deploying {0}.", package.Name);
-		ReleaseManager.DeployLocaly(Context, package);
-	});
-});
-
-// -------------------------------------------------------------------
-// TASKS: ENVIRONMENT AND BUILD TOOLS
-// -------------------------------------------------------------------
-
-Task("SetupDevelopmentExperience")
-	.IsDependentOn("SetupTools")
-	.IsDependentOn("SetupDatabase")
-    .Does(() =>
-{
-	Information("Finished setup of development tools.");
-});
-
-Task("SetupTools")
-    .Does(() =>
-{
-	Information("No additional tools to install and configure...");
-});
-
-Task("SetupDatabase")
-    .Does(() =>
-{
-	Information("No databases to configure...");
 });
 
 RunTarget(target);
